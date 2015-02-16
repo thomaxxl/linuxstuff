@@ -52,13 +52,13 @@ localityName            = Locality Name (eg, city)
 localityName_default        = Wommelgem
 
 organizationName         = Organization Name (eg, company)
-organizationName_default    = SecureLink
+organizationName_default    = Tohmaxx
 
 commonName          = Common Name (e.g. server FQDN or YOUR name)
-commonName_default      = SecureLink MSS CA
+commonName_default      = Tohmaxx MSS CA
 
 emailAddress            = Email Address
-emailAddress_default        = thomas.pollet@securelink.be
+emailAddress_default        = thomas.pollet@gmail.com
 
 [ ca_extensions ]
 
@@ -100,13 +100,13 @@ localityName            = Locality Name (eg, city)
 localityName_default        = Wommelgem
 
 rganizationName         = Organization Name (eg, company)
-organizationName_default    = SecureLink MSS CA
+organizationName_default    = Tohmaxx CA
 
 commonName          = Common Name (e.g. server FQDN or YOUR name)
-commonName_default      = mss.securelink.eu
+commonName_default      = www.mydomain.eu
 
 emailAddress            = Email Address
-emailAddress_default        = mss@securelink.eu
+emailAddress_default        = security@mydomain.eu
 
 [ server_req_extensions ]
 
