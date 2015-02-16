@@ -49,13 +49,13 @@ stateOrProvinceName     = State or Province Name (full name)
 stateOrProvinceName_default = A
 
 localityName            = Locality Name (eg, city)
-localityName_default        = Wommelgem
+localityName_default        = Gent
 
 organizationName         = Organization Name (eg, company)
 organizationName_default    = Tohmaxx
 
 commonName          = Common Name (e.g. server FQDN or YOUR name)
-commonName_default      = Tohmaxx MSS CA
+commonName_default      = Tohmaxx CA
 
 emailAddress            = Email Address
 emailAddress_default        = thomas.pollet@gmail.com
@@ -97,16 +97,16 @@ stateOrProvinceName     = State or Province Name (full name)
 stateOrProvinceName_default = A
 
 localityName            = Locality Name (eg, city)
-localityName_default        = Wommelgem
+localityName_default        = Gent
 
 rganizationName         = Organization Name (eg, company)
 organizationName_default    = Tohmaxx CA
 
 commonName          = Common Name (e.g. server FQDN or YOUR name)
-commonName_default      = www.mydomain.eu
+commonName_default      = test.example.com
 
 emailAddress            = Email Address
-emailAddress_default        = security@mydomain.eu
+emailAddress_default        = thomas.pollet@gmail.com
 
 [ server_req_extensions ]
 
@@ -118,7 +118,7 @@ nsComment           = "OpenSSL Generated Certificate"
 
 [ alternate_names ]
 
-DNS.1       = example.com
+DNS.1       = test.example.com
 
 
 EOF
@@ -126,20 +126,26 @@ EOF
 # Generate ca cert
 (while true; do echo ; done ) | openssl req -x509 -config openssl-ca.cnf -newkey rsa:4096 -sha256 -nodes -out cacert.pem -outform PEM
 
-# Generate server cert
-(while true; do echo ; done ) | openssl req -config openssl-server.cnf -newkey rsa:2048 -sha256 -nodes -out servercert.csr -outform PEM
-
-# View:
-openssl req -text -noout -verify -in servercert.csr
-
-# CSR: 
-(while true; do echo ; done ) | openssl req -config openssl-server.cnf -newkey rsa:2048 -sha256 -nodes -out servercert.csr -outform PEM
-
-openssl req -text -noout -verify -in servercert.csr
+openssl x509 -text -noout -in cacert.pem
 
 > index.txt
 echo 01 > serial.txt
 
+# Generate server cert
+(while true; do echo ; done ) | openssl req -config openssl-server.cnf -newkey rsa:2048 -sha256 -nodes -out servercert.csr -outform PEM
+
+# CSR: 
+(while true; do echo ; done ) | openssl req -config openssl-server.cnf -newkey rsa:2048 -sha256 -nodes -out servercert.csr -outform PEM
+
+# Show server cert and csr:
+openssl x509 -text -noout -in servercert.pem
+openssl req -text -noout -verify -in servercert.csr
+
+
 # Sign CSR
 (while true; do echo y; done )  | openssl ca -keyfile cakey.pem -cert cacert.pem -extensions usr_cert -notext -md sha256 -in servercert.csr -out servercert.pem -config openssl-ca.cnf  -policy policy_anything
 
+
+/bin/cp serverkey.pem /etc/pki/tls/private/localhost.key
+/bin/cp servercert.pem /etc/pki/tls/certs/localhost.crt
+service httpd restart
