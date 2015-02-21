@@ -24,6 +24,14 @@ define print_task
   printf "name: %s " , $t->comm
   printf "stack: 0x%x \n", $t->stack
 end
+
+
+set $d = (((struct file *)0xf2df9540).f_path).dentry
+print $d->d_iname
+
+print (((struct file *)0xf2df9540).f_path).dentry
+print (struct dentry)((((struct file *)0xf2df9540).f_path).dentry ).d_iname
+
         
 
 
