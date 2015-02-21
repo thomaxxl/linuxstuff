@@ -1,0 +1,61 @@
+print slab_caches
+
+
+define print_tasks
+    set $t = &init_task
+    print_task $t
+    find_next_task $t
+    while (&init_task!=$t)
+        print_task $t
+        find_next_task $t
+    end
+end
+
+define find_next_task
+  # Given a task address, find the next task in the linked list
+  set $t = (struct task_struct *)$arg0
+  set $offset=((char *)&$t->tasks - (char *)$t)
+  set $t=(struct task_struct *)((char *)$t->tasks.next- (char *)$offset)
+end
+
+define print_task
+  set $t = $arg0
+  printf "pid: %i ",$t->pid 
+  printf "name: %s " , $t->comm
+  printf "stack: 0x%x \n", $t->stack
+end
+        
+
+
+# Helper function to find a task given a PID or the
+# address of a task_struct.
+# The result is set into $t
+define find_task
+  # Addresses greater than _end: kernel data...
+  # ...user passed in an address
+  if ((unsigned)$arg0 > (unsigned)&_end)
+    set $t=(struct task_struct *)$arg0
+  else
+    # User entered a numeric PID
+    # Walk the task list to find it
+    set $t=&init_task
+    if (init_task.pid != (unsigned)$arg0)
+      find_next_task $t
+      while (&init_task!=$t && $t->pid != (unsigned)$arg0)
+        find_next_task $t
+      end
+      if ($t == &init_task)
+        printf "Couldn't find task; using init_task\n"
+      end
+    end
+  end
+  printf "Task \"%s\":\n", $t->comm
+end
+
+
+define find_next_task
+  # Given a task address, find the next task in the linked list
+  set $t = (struct task_struct *)$arg0
+  set $offset=((char *)&$t->tasks - (char *)$t)
+  set $t=(struct task_struct *)((char *)$t->tasks.next- (char *)$offset)
+end
