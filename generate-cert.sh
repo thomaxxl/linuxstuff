@@ -131,10 +131,7 @@ openssl x509 -text -noout -in cacert.pem
 > index.txt
 echo 01 > serial.txt
 
-# Generate server cert
-(while true; do echo ; done ) | openssl req -config openssl-server.cnf -newkey rsa:2048 -sha256 -nodes -out servercert.csr -outform PEM
-
-# CSR: 
+# Server CSR: 
 (while true; do echo ; done ) | openssl req -config openssl-server.cnf -newkey rsa:2048 -sha256 -nodes -out servercert.csr -outform PEM
 
 # Show server cert and csr:
