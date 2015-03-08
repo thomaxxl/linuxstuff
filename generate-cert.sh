@@ -124,7 +124,7 @@ DNS.1       = test.example.com
 EOF
 
 # Generate ca cert
-(while true; do echo ; done ) | openssl req -x509 -config openssl-ca.cnf -newkey rsa:4096 -sha256 -nodes -out cacert.pem -outform PEM
+yes "" | openssl req -x509 -config openssl-ca.cnf -newkey rsa:4096 -sha256 -nodes -out cacert.pem -outform PEM
 
 openssl x509 -text -noout -in cacert.pem
 
