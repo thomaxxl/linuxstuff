@@ -132,13 +132,13 @@ openssl x509 -text -noout -in cacert.pem
 echo 01 > serial.txt
 
 # Server CSR: 
-(while true; do echo ; done ) | openssl req -config openssl-server.cnf -newkey rsa:2048 -sha256 -nodes -out servercert.csr -outform PEM
+yes "" | openssl req -config openssl-server.cnf -newkey rsa:2048 -sha256 -nodes -out servercert.csr -outform PEM
 
 # Display CSR:
 openssl req -text -noout -verify -in servercert.csr
 
 # Sign CSR
-(while true; do echo y; done )  | openssl ca -keyfile cakey.pem -cert cacert.pem -extensions usr_cert -notext -md sha256 -in servercert.csr -out servercert.pem -config openssl-ca.cnf  -policy policy_anything
+yes  | openssl ca -keyfile cakey.pem -cert cacert.pem -extensions usr_cert -notext -md sha256 -in servercert.csr -out servercert.pem -config openssl-ca.cnf  -policy policy_anything
 
 # Display cert
 openssl x509 -text -noout -in servercert.pem
