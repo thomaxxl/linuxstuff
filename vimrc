@@ -2,6 +2,7 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set mouse=a
+set hlsearch
 
 command -nargs=0 -bar Update if &modified
                            \|    if empty(bufname('%'))
