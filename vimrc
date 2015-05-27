@@ -4,6 +4,8 @@ set expandtab
 set mouse=a
 set hlsearch
 set ci
+set ai
+set si
 
 command -nargs=0 -bar Update if &modified
                            \|    if empty(bufname('%'))
