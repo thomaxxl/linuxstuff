@@ -17,4 +17,6 @@ command -nargs=0 -bar Update if &modified
 nnoremap <silent> <C-S> :<C-u>Update<CR>
 vnoremap <silent> <C-S>         <C-C>:update<CR>
 inoremap <silent> <C-S>         <C-O>:update<CR>
+nnoremap <C-s> :w<cr>a
+
 
