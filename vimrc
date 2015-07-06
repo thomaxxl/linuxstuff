@@ -20,8 +20,8 @@ inoremap <silent> <C-S>         <C-O>:update<CR>
 nnoremap <silent> <C-s> :w<cr>a
 
 nnoremap <silent> <C-X> :<C-u>Update<CR>
-vnoremap <silent> <C-X>         <C-C>:update<CR>
-inoremap <silent> <C-X>         <C-O>:update<CR>
+vnoremap <silent> <C-X> <C-C>:update<CR>
+inoremap <silent> <C-X> <C-O>:update<CR>
 nnoremap <C-X> <esc>:x<CR>
 inoremap <C-X> <esc>:x<CR>
 vnoremap <C-X> <esc>:x<CR>
