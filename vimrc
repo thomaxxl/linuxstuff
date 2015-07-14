@@ -94,7 +94,7 @@ set cmdheight=1    " heaight of the command bar
 vnoremap > ><CR>gv
 vnoremap < <<CR>gv
 
-
+" ctrl + tab doesn't get forwarded by putty, use f1,f2
 nnoremap <F1> :tabprevious<CR>
 nnoremap <F2> :tabnext<CR>
 nnoremap <C-t> :tabnew<CR>
