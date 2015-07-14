@@ -109,3 +109,6 @@ inoremap <C-t>     <Esc>:tabnew<CR>
 inoremap <C-O> <esc>:tabedit<space>
 vnoremap <C-O> <esc>:tabedit<space>
 nnoremap <C-O> <esc>:tabedit<space>
+
+set list
+set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
