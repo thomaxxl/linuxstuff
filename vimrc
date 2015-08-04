@@ -113,4 +113,6 @@ nnoremap <C-O> <esc>:tabedit<space>
 set list
 set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
 
-set color desert
+" :color desert
+set background=dark
+
