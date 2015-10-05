@@ -1,9 +1,7 @@
-" bloated vimrc
-
 set tabstop=4
 set shiftwidth=4
 set expandtab
-set mouse=a
+set mouse=r
 set ai
 set si
 command -nargs=0 -bar Update if &modified
@@ -37,15 +35,15 @@ vnoremap <C-A> <esc>:1<CR>v<CR>G$<CR><esc>
 
 vnoremap <C-C> <esc>y<CR>
 
-nmap <S-Up> V
-nmap <S-Down> V
+nmap <S-Up> v
+nmap <S-Down> v
 " these are mapped in visual mode
 vmap <S-Up> k
 vmap <S-Down> j
 
-nnoremap <S-Left> <esc>gg
-vnoremap <S-Left> <esc>gg
-inoremap <S-Left> <esc>gg
+nnoremap <C-Left> <esc>gg
+vnoremap <C-Left> <esc>gg
+inoremap <C-Left> <esc>gg
 
 set ls=1
 
@@ -96,8 +94,6 @@ set cmdheight=1    " heaight of the command bar
 vnoremap > ><CR>gv
 vnoremap < <<CR>gv
 
-" ctrl + tab doesn't get forwarded by putty, use f1,f2
-" ctrl + pgup/pgdwn is used by putty to scroll
 nnoremap <F1> :tabprevious<CR>
 nnoremap <F2> :tabnext<CR>
 nnoremap <C-t> :tabnew<CR>
@@ -110,9 +106,42 @@ inoremap <C-O> <esc>:tabedit<space>
 vnoremap <C-O> <esc>:tabedit<space>
 nnoremap <C-O> <esc>:tabedit<space>
 
-set list
-set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
+inoremap [OC <esc>:tabedit<space>
+vnoremap [OC <esc>:tabedit<space>
+nnoremap [OC <esc>:tabedit<space>
 
+" set list
+" set listchars=tab:..,trail:.,nbsp:.
+"statusline setup
+nmap <S-Up> V
+nmap <S-Down> V
+" these are mapped in visual mode
+vmap <S-Up> k
+
+nnoremap sp :set paste<CR>
+nnoremap <C-V> :set paste<CR>i<CR><S-Insert>
+inoremap <C-V> <esc>:set paste<CR>i<CR><S-Insert>A
 " :color desert
 set background=dark
 
+au InsertEnter * setlocal cursorline!
+au InsertLeave * setlocal cursorline
+
+"au InsertLeave * color peachpuff
+"
+":hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+":hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+":nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+
+setlocal cursorline
+
+set mouse=a
+
+" Make search case insensitive
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+
+set nosmartindent
