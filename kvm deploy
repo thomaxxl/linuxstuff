@@ -1,4 +1,33 @@
 # Check if virtualization is possible
-[[ $(egrep -c '(vmx|svm)' /proc/cpuinfo) != 1 ]] && exit
+#[[ $(egrep -c '(vmx|svm)' /proc/cpuinfo) != 1 ]] && exit_error("No virtualization possible")
 
-apt-get -y install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
+egrep -q '(vmx|svm)' /proc/cpuinfo || exit_error("No virtualization possible")
+
+apt-get -y install qemu-kvm qemu-system libvirt-bin ubuntu-vm-builder bridge-utils || exit_error("Failed to download packages")
+
+virsh -c qemu:///system list || exit_error("Installation corrupt")
+
+# apt-get -y install virt-manager
+# sysctl net.ipv4.ip_forward=1
+
+cd /tmp
+wget http://releases.ubuntu.com/14.04.3/ubuntu-14.04.3-server-amd64.iso
+
+#virt-install  -n UbuntuGuest --description "Ubuntu VM"  --os-type=Linux  --os-variant=ubuntutrusty  --ram=512  --vcpus=1  --disk path=/var/lib/libvirt/images/myRHELVM1.img,bus=virtio,size=4  --graphics none  --cdrom /tmp/ubuntu-14.04.3-server-amd64.iso  --network bridge:virbr0
+
+virt-install \
+ -n UbuntuGuest\
+ --description "Ubuntu VM" \
+ --os-type=Linux \
+ --os-variant=ubuntutrusty \
+ --ram=512 \
+ --vcpus=1 \
+ --disk path=/var/lib/libvirt/images/Ubuntu.img,bus=virtio,size=4 \
+ --graphics none \
+ --cdrom /tmp/ubuntu*.iso \
+ --network bridge:virbr0 || exit_error("Install failed")
+
+virsh list --all
+ls -l /etc/libvirt/qemu/
+
+# virsh edit UbuntuGuest
