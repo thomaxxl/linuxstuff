@@ -1,0 +1,4 @@
+# Check if virtualization is possible
+[[ $(egrep -c '(vmx|svm)' /proc/cpuinfo) != 1 ]] && exit
+
+apt-get -y install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils
