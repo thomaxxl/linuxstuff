@@ -59,3 +59,11 @@ echo PermitRootLogin without-password >> /etc/ssh/sshd_config
 apt-get -y install cifs-utils
 mount -t cifs //127.0.0.1/public /mnt/t -ouser=t,password=t,rw
 
+### KERNEL
+
+mkdir /var/share/ubuntu
+cd !$
+apt-get -y build-dep linux-image-`uname -r`
+apt-get -y source linux-image-`uname -r`
+cd linux-lts-vivid-3.19.0
+cp -vi /boot/config-`uname -r` .config
