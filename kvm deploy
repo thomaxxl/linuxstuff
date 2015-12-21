@@ -3,7 +3,7 @@
 
 egrep -q '(vmx|svm)' /proc/cpuinfo || exit_error("No virtualization possible")
 
-apt-get -y install qemu-kvm qemu-system libvirt-bin ubuntu-vm-builder bridge-utils gdb || exit_error("Failed to download packages")
+apt-get -y install qemu-kvm qemu-system libvirt-bin ubuntu-vm-builder bridge-utils gdb virtinst screen virt-manager|| exit_error("Failed to download packages")
 
 virsh -c qemu:///system list || exit_error("Installation corrupt")
 
@@ -19,7 +19,7 @@ virt-install \
  -n UbuntuGuest\
  --description "Ubuntu VM" \
  --os-type=Linux \
- --os-variant=ubuntutrusty \
+ --os-variant=ubuntuwily \
  --ram=512 \
  --vcpus=1 \
  --disk path=/var/lib/libvirt/images/Ubuntu.img,bus=virtio,size=4 \
@@ -27,7 +27,7 @@ virt-install \
  --cdrom /tmp/ubuntu*.iso \
  --network bridge:virbr0 || exit_error("Install failed")
 
-virsh list --all
+virsh list --allx
 ls -l /etc/libvirt/qemu/
 
 # virsh edit UbuntuGuest
